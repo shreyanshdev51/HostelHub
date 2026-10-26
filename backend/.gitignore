@@ -38,3 +38,15 @@ build/
 .env
 .env.*
 !.env.example
+# Local configuration and secrets
+backend/src/main/resources/FSD LA 2.properties
+.env
+.env.*
+!.env.example
+
+# Generated and local files
+frontend/dist/
+**/node_modules/
+**/target/
+.venv/
+.vscode/

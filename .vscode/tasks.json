@@ -1,0 +1,450 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Install frontend dependencies",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"--prefix",
+				"frontend",
+				"install"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Install frontend dependencies cmd",
+			"type": "shell",
+			"command": "npm.cmd",
+			"args": [
+				"--prefix",
+				"frontend",
+				"install"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Build frontend",
+			"type": "shell",
+			"command": "npm.cmd",
+			"args": [
+				"--prefix",
+				"frontend",
+				"run",
+				"build"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Test backend",
+			"type": "shell",
+			"command": "backend\\mvnw.cmd",
+			"args": [
+				"-f",
+				"backend\\pom.xml",
+				"test"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Test backend maven",
+			"type": "shell",
+			"command": "mvn.cmd",
+			"args": [
+				"-f",
+				"backend\\pom.xml",
+				"test"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Rebuild frontend after CRUD update",
+			"type": "shell",
+			"command": "npm.cmd",
+			"args": [
+				"--prefix",
+				"frontend",
+				"run",
+				"build"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Start Spring Boot backend",
+			"type": "shell",
+			"command": "mvn.cmd",
+			"args": [
+				"-f",
+				"backend\\pom.xml",
+				"spring-boot:run"
+			],
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "Start frontend dev server",
+			"type": "shell",
+			"command": "cd frontend && npm.cmd",
+			"args": [
+				"run",
+				"dev",
+				"--",
+				"--host",
+				"localhost"
+			],
+			"isBackground": true,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Start frontend dev server exact",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Set-Location 'C:\\Users\\Shreyansh patel\\Downloads\\backend\\frontend'; npm.cmd run dev -- --host localhost"
+			],
+			"isBackground": true,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Start frontend dev server cmd",
+			"type": "shell",
+			"command": "cmd.exe",
+			"args": [
+				"/d",
+				"/c",
+				"cd /d \"C:\\Users\\Shreyansh patel\\Downloads\\backend\\frontend\" && npm.cmd run dev -- --host localhost"
+			],
+			"isBackground": true,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Start frontend dev server prefix",
+			"type": "shell",
+			"command": "npm.cmd",
+			"args": [
+				"--prefix",
+				"frontend",
+				"run",
+				"dev",
+				"--",
+				"--host",
+				"localhost"
+			],
+			"isBackground": true,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Verify port 5173",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"-e",
+				"const net=require('net');const s=net.createConnection({host:'127.0.0.1',port:5173});s.on('connect',()=>{console.log('PORT_5173_LISTENING');s.end();process.exit(0)});s.on('error',e=>{console.error('PORT_5173_NOT_LISTENING: '+e.message);process.exit(1)});setTimeout(()=>{console.error('PORT_5173_TIMEOUT');process.exit(1)},3000)"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Verify port 5173 now",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"-e",
+				"const s=require(\"net\").createConnection(5173,\"127.0.0.1\");s.on(\"connect\",()=>{console.log(\"PORT_5173_LISTENING\");s.end();});s.on(\"error\",e=>{console.error(\"PORT_5173_NOT_LISTENING: \"+e.message);process.exit(1);});"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Restart Spring Boot backend",
+			"type": "shell",
+			"command": "cmd.exe",
+			"args": [
+				"/d",
+				"/c",
+				"for /f \"tokens=5\" %a in ('netstat -ano ^| findstr LISTENING ^| findstr :8080') do @taskkill /PID %a /F & mvn.cmd -f backend\\pom.xml spring-boot:run"
+			],
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "Start updated Spring Boot backend",
+			"type": "shell",
+			"command": "mvn.cmd",
+			"args": [
+				"-f",
+				"backend\\pom.xml",
+				"spring-boot:run"
+			],
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "Inspect port 8080 owner",
+			"type": "shell",
+			"command": "Get-NetTCPConnection",
+			"args": [
+				"-LocalPort",
+				"8080",
+				"-State",
+				"Listen",
+				"|",
+				"ForEach-Object",
+				"{",
+				"$p=Get-CimInstance",
+				"Win32_Process",
+				"-Filter",
+				"(\"ProcessId=\"+$_.OwningProcess);",
+				"[PSCustomObject]@{PID=$_.OwningProcess;CommandLine=$p.CommandLine;Executable=$p.ExecutablePath}",
+				"}",
+				"|",
+				"Format-List"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Find port 8080 listener",
+			"type": "shell",
+			"command": "Get-NetTCPConnection",
+			"args": [
+				"-LocalPort",
+				"8080",
+				"-State",
+				"Listen"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Read port owner PID",
+			"type": "shell",
+			"command": "Get-NetTCPConnection",
+			"args": [
+				"-LocalPort",
+				"8080",
+				"-State",
+				"Listen",
+				"|",
+				"Select-Object",
+				"OwningProcess,LocalAddress,LocalPort",
+				"|",
+				"Format-List"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Inspect HostelHub process",
+			"type": "shell",
+			"command": "Get-CimInstance",
+			"args": [
+				"Win32_Process",
+				"-Filter",
+				"ProcessId = 15288",
+				"|",
+				"Select-Object",
+				"ProcessId,Name,CommandLine,ExecutablePath",
+				"|",
+				"Format-List"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Stop stale HostelHub PID 15288",
+			"type": "shell",
+			"command": "Stop-Process",
+			"args": [
+				"-Id",
+				"15288",
+				"-Force"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Start updated HostelHub backend",
+			"type": "shell",
+			"command": "mvn.cmd",
+			"args": [
+				"-f",
+				"backend\\pom.xml",
+				"spring-boot:run"
+			],
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "Verify updated port owner",
+			"type": "shell",
+			"command": "Get-NetTCPConnection",
+			"args": [
+				"-LocalPort",
+				"8080",
+				"-State",
+				"Listen",
+				"|",
+				"Select-Object",
+				"OwningProcess,LocalAddress,LocalPort",
+				"|",
+				"Format-List"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Read current 8080 owner details",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"$p=Get-CimInstance Win32_Process -Filter 'ProcessId = 15876'; if($p){$cmd=$p.CommandLine -replace '(?i)(password|passwd|pwd)([=:])[^\\s\"'']+','$1$2[REDACTED]'; [PSCustomObject]@{ProcessId=$p.ProcessId;Name=$p.Name;CommandLine=$cmd;ExecutablePath=$p.ExecutablePath;ParentProcessId=$p.ParentProcessId}|Format-List}else{'PROCESS_NOT_FOUND'}"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Read 8080 owner command line",
+			"type": "shell",
+			"command": "Get-CimInstance",
+			"args": [
+				"Win32_Process",
+				"-Filter",
+				"ProcessId = 15876",
+				"|",
+				"Select-Object",
+				"ProcessId,Name,CommandLine,ExecutablePath,ParentProcessId",
+				"|",
+				"Format-List"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Check dashboard endpoint",
+			"type": "shell",
+			"command": "Invoke-WebRequest",
+			"args": [
+				"-UseBasicParsing",
+				"-Uri",
+				"http://127.0.0.1:8080/api/dashboard",
+				"-Method",
+				"Get",
+				"|",
+				"Select-Object",
+				"StatusCode,StatusDescription,Content,Headers",
+				"|",
+				"Format-List"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Check owner MySQL connection",
+			"type": "shell",
+			"command": "Get-NetTCPConnection",
+			"args": [
+				"-OwningProcess",
+				"15876",
+				"-ErrorAction",
+				"SilentlyContinue",
+				"|",
+				"Where-Object",
+				"{$_.RemotePort -eq 3306 -or $_.LocalPort -eq 3306}",
+				"|",
+				"Select-Object",
+				"LocalAddress,LocalPort,RemoteAddress,RemotePort,State,OwningProcess",
+				"|",
+				"Format-Table",
+				"-AutoSize"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Check MySQL listener",
+			"type": "shell",
+			"command": "Get-NetTCPConnection",
+			"args": [
+				"-LocalPort",
+				"3306",
+				"-ErrorAction",
+				"SilentlyContinue",
+				"|",
+				"Select-Object",
+				"LocalAddress,LocalPort,RemoteAddress,RemotePort,State,OwningProcess",
+				"|",
+				"Format-Table",
+				"-AutoSize"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Read 8080 owner network state",
+			"type": "shell",
+			"command": "Get-NetTCPConnection",
+			"args": [
+				"-OwningProcess",
+				"15876",
+				"-ErrorAction",
+				"SilentlyContinue",
+				"|",
+				"Select-Object",
+				"LocalAddress,LocalPort,RemoteAddress,RemotePort,State,OwningProcess",
+				"|",
+				"Format-Table",
+				"-AutoSize"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Read 8080 owner start time",
+			"type": "shell",
+			"command": "Get-Process",
+			"args": [
+				"-Id",
+				"15876",
+				"|",
+				"Select-Object",
+				"Id,ProcessName,StartTime,Path",
+				"|",
+				"Format-List"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Read backend launcher process",
+			"type": "shell",
+			"command": "Get-CimInstance",
+			"args": [
+				"Win32_Process",
+				"-Filter",
+				"ProcessId = 31032",
+				"|",
+				"Select-Object",
+				"ProcessId,Name,CommandLine,ExecutablePath,ParentProcessId",
+				"|",
+				"Format-List"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		}
+	]
+}
